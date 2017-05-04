@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
     
 
     // close outfile
-    
+    fclose(outptr);
 
     // success
     return 0;
