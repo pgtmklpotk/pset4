@@ -75,7 +75,19 @@ int main(int argc, char *argv[])
 
             // read RGB triple from infile
             fread(&triple, sizeof(RGBTRIPLE), 1, inptr);
-
+            if(triple.rgbtBlue == 0x00 && triple.rgbtGreen == 0x00)
+                triple.rgbtRed = 0x00;
+            else if(triple.rgbtBlue == 0x00 && triple.rgbtGreen == 0x00&&triple.rgbtRed == 0x00)
+                {
+                    triple.rgbtBlue = 0xff;triple.rgbtGreen = 0xff;triple.rgbtRed = 0xff;
+                }
+                else if(triple.rgbtBlue == 0xFF && triple.rgbtGreen == 0xFF && triple.rgbtRed == 0xFF){
+                    
+                }
+            else{
+                triple.rgbtBlue = 0x00;triple.rgbtGreen = 0x00;triple.rgbtRed = 0x00;
+            }
+            
             // write RGB triple to outfile
             fwrite(&triple, sizeof(RGBTRIPLE), 1, outptr);
         }
@@ -91,10 +103,10 @@ int main(int argc, char *argv[])
     }
 
     // close infile
-    fclose(inptr);
+    
 
     // close outfile
-    fclose(outptr);
+    
 
     // success
     return 0;
