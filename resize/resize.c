@@ -99,13 +99,13 @@ int main(int argc, char *argv[])
         // iterate over pixels in scanline
         for (int j = 0; j < originalWidth; j++)
         {
-            
+            // temporary storage for rgb
             RGBTRIPLE triple;
             
-            
+            // read RGB triple from infile
             fread(&triple, sizeof(RGBTRIPLE), 1, inptr);
             
-            
+            // write pixel to buffer n times
             for(int count = 0; count < scale; count++)
             {
                 *(buffer+(tracker)) = triple;
@@ -113,22 +113,22 @@ int main(int argc, char *argv[])
             }
         }
             
-        
+        // skip over padding, if present
         fseek(inptr, originalPadding, SEEK_CUR);
 
-       
+        // write RGB triple to outfile
            for(int r = 0; r < scale; r++)
            {
                 fwrite((buffer), sizeof(RGBTRIPLE), bi.biWidth, outptr);
 
-                // 
+                // write padding to outfile
                 for (int k = 0; k < padding; k++)
                     fputc(0x00, outptr);
            }        
     }
 
-    
-    free(buffer);
+    // free memory from buffer
+    /free(buffer);
 
     // close infile
     fclose(inptr);
