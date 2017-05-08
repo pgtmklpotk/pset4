@@ -61,5 +61,7 @@ int main(void)
     }
   
     
+    // close the file
+    fclose(file);
 	return 0;
 }
