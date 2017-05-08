@@ -24,7 +24,42 @@ int main(void)
    
     FILE* temp = NULL; 
      
-    
+    while (!feof(file))
+    {
+       
+        
+        if (jpeg[0] == 0xff && jpeg[1] == 0xd8 && jpeg[2] == 0xff && (jpeg[3] == 0xe0 || jpeg[3] == 0xe1))
+        {
+            
+            if (temp != NULL)
+            {
+                fclose(temp);
+                
+            }
+            
+            
+            sprintf(fname, "%03d.jpg", counter);
+            
+            
+            temp = fopen(fname, "w");
+            
+            
+            counter++;
+            
+            
+            fwrite(jpeg, sizeof(jpeg), 1, temp);
+        }
+        else if (counter > 0)
+        {
+            
+            fwrite(jpeg, sizeof(jpeg), 1, temp);            
+            
+        }
+      
+        fread(jpeg, sizeof(jpeg), 1, file);
+        
+    }
+  
     
 	return 0;
 }
