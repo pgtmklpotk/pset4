@@ -119,7 +119,11 @@ int main(int argc, char *argv[])
        
            for(int r = 0; r < scale; r++)
            {
-                
+                fwrite((buffer), sizeof(RGBTRIPLE), bi.biWidth, outptr);
+
+                // 
+                for (int k = 0; k < padding; k++)
+                    fputc(0x00, outptr);
            }        
     }
 
