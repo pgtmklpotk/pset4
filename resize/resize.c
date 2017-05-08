@@ -61,7 +61,24 @@ int main(int argc, char *argv[])
         return 4;
     }
     
-
+    // original width and height
+    int originalWidth = bi.biWidth;
+    int originalHeight = bi.biHeight;
+   
+    //  width and height
+    bi.biWidth *= scale;
+    bi.biHeight *= scale;
+       
+    //  original padding 
+    int originalPadding =  (4 - (originalWidth * sizeof(RGBTRIPLE)) % 4) % 4;
+     // determine padding for scanlines
+    int padding = (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
+    
+    // update image size
+    bi.biSizeImage = abs(bi.biHeight) * ((bi.biWidth * sizeof (RGBTRIPLE)) + padding);
+    
+    // update file size
+    bf.bfSize = bi.biSizeImage + sizeof (BITMAPFILEHEADER) + sizeof (BITMAPINFOHEADER);
     
     // write outfile's BITMAPFILEHEADER
     fwrite(&bf, sizeof(BITMAPFILEHEADER), 1, outptr);
