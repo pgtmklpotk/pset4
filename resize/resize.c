@@ -128,7 +128,7 @@ int main(int argc, char *argv[])
     }
 
     // free memory from buffer
-    /free(buffer);
+    free(buffer);
 
     // close infile
     fclose(inptr);
